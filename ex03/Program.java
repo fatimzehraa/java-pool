@@ -3,25 +3,34 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         int weeks = 0;
-        String line1;
-        String line2;
-        String[] splitted;
-        int[] numbers;
-        try(Scanner scanner = new Scanner(System.in)){
-            while (scanner.hasNext()){
-                line1 = scanner.nextLine();
-                line2 = scanner.nextLine();
-                splitted = line1.split(" ");
-                numbers = line2.chars().map(c -> c - '0').toArray();
-                if (splitted.length != 2){
-                    System.err.println("IllegalArgument");
-                    System.exit(1);
-                }
-                if (line1.equals("42") || weeks == 18){
-                    break;
-                }
+        int curentWeek = 0;
+        String s;
+        int[] min = new int[18];
+        int num = 0;
+        Scanner scanner = new Scanner(System.in);
+        while (true){
+            s = scanner.next();
+            if (s.equals("42") || weeks == 18) {
+                break;
             }
+            curentWeek = scanner.nextInt();
+            if (curentWeek < weeks){
+                System.out.println("IllegalArgument");
+                System.exit(1);
+            }
+            for (int i = 0; i < 5; i++){
+                num = Integer.parseInt(scanner.next());
+                if (min[curentWeek] == 0 || num < min[curentWeek])
+                min[curentWeek] = num;
+            }
+            weeks++;
+        }
+        for (int i = 1; i <= weeks; i++){
+            System.out.print("Week " + i + " ");
+            for (int j = 0; j < min[i]; j++){
+                System.out.print("=");
+            }
+            System.out.println(">");
         }
     }
 }
-
